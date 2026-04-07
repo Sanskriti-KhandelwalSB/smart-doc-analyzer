@@ -21,7 +21,7 @@
 | 📥 **Export Results** | Download analysis as TXT or JSON |
 | 📋 **History** | Track recently analyzed documents |
 | 🌓 **Dark/Light Mode** | Toggle between themes for comfort |
-| ⚡ **Fast Analysis** | Parallel AI processing for speed |
+
 
 ---
 
@@ -157,4 +157,4 @@ Results displayed as beautiful cards
 
 ---
 
-Made with ❤️ using React + Groq AI (Free Llama3)
+Made with using React + Groq AI (Free Llama3)
