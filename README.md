@@ -289,6 +289,6 @@ MIT License - Feel free to use for personal or commercial projects.
 
 ---
 
-Made with ❤️ using React + Groq AI (Free Llama3-70b)
+Made with using React + Groq AI (Free Llama3-70b)
 
 **Ready to analyze your documents? Get your free API key and start now!** 🚀
