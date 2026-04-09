@@ -3,6 +3,22 @@
   "WorkspaceRootPath": "C:\\Users\\Sanskriti\\Desktop\\smart-doc-analyzer\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Sanskriti\\Desktop\\smart-doc-analyzer\\src\\utils\\groqService.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\utils\\groqService.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Sanskriti\\Desktop\\smart-doc-analyzer\\src\\index.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\index.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Sanskriti\\Desktop\\smart-doc-analyzer\\src\\utils\\extractText.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\utils\\extractText.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Sanskriti\\Desktop\\smart-doc-analyzer\\src\\components\\ResultCards.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\components\\ResultCards.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Sanskriti\\Desktop\\smart-doc-analyzer\\README.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:README.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
     }
@@ -55,15 +71,71 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "groqService.js",
+              "DocumentMoniker": "C:\\Users\\Sanskriti\\Desktop\\smart-doc-analyzer\\src\\utils\\groqService.js",
+              "RelativeDocumentMoniker": "src\\utils\\groqService.js",
+              "ToolTip": "C:\\Users\\Sanskriti\\Desktop\\smart-doc-analyzer\\src\\utils\\groqService.js",
+              "RelativeToolTip": "src\\utils\\groqService.js",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAAABQAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-04-07T11:07:04.851Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "extractText.js",
+              "DocumentMoniker": "C:\\Users\\Sanskriti\\Desktop\\smart-doc-analyzer\\src\\utils\\extractText.js",
+              "RelativeDocumentMoniker": "src\\utils\\extractText.js",
+              "ToolTip": "C:\\Users\\Sanskriti\\Desktop\\smart-doc-analyzer\\src\\utils\\extractText.js",
+              "RelativeToolTip": "src\\utils\\extractText.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-04-07T11:05:54.777Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "index.js",
+              "DocumentMoniker": "C:\\Users\\Sanskriti\\Desktop\\smart-doc-analyzer\\src\\index.js",
+              "RelativeDocumentMoniker": "src\\index.js",
+              "ToolTip": "C:\\Users\\Sanskriti\\Desktop\\smart-doc-analyzer\\src\\index.js",
+              "RelativeToolTip": "src\\index.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-04-07T11:00:57.865Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ResultCards.jsx",
+              "DocumentMoniker": "C:\\Users\\Sanskriti\\Desktop\\smart-doc-analyzer\\src\\components\\ResultCards.jsx",
+              "RelativeDocumentMoniker": "src\\components\\ResultCards.jsx",
+              "ToolTip": "C:\\Users\\Sanskriti\\Desktop\\smart-doc-analyzer\\src\\components\\ResultCards.jsx",
+              "RelativeToolTip": "src\\components\\ResultCards.jsx",
+              "ViewState": "AgIAAHQBAAAAAAAAAAAAABYAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
+              "WhenOpened": "2026-04-07T10:20:45.657Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "README.md",
               "DocumentMoniker": "C:\\Users\\Sanskriti\\Desktop\\smart-doc-analyzer\\README.md",
               "RelativeDocumentMoniker": "README.md",
               "ToolTip": "C:\\Users\\Sanskriti\\Desktop\\smart-doc-analyzer\\README.md",
               "RelativeToolTip": "README.md",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAAABkAAAAiAAAAAAAAAA==",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAAABkAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
               "WhenOpened": "2026-04-06T09:44:03.8Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
             },
             {
               "$type": "Bookmark",

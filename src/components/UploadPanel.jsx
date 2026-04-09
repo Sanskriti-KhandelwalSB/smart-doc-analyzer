@@ -13,12 +13,34 @@ function formatSize(bytes) {
   return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
 }
 
+// Template descriptions
+const TEMPLATE_DESCRIPTIONS = {
+  contract: '📜 Focuses on legal terms, obligations, liabilities, termination clauses, and renewal terms. Includes compliance checks.',
+  resume: '👤 Extracts skills, experience, education, certifications, and achievements. Highlights key qualifications.',
+  report: '📊 Analyzes findings, conclusions, recommendations, and data insights. Identifies main topics and reading level.',
+  meeting_notes: '📝 Extracts decisions made, action items assigned, deadlines, and responsible parties. Great for follow-ups.',
+  research_paper: '🎓 Focuses on hypothesis, methodology, findings, contributions, and limitations. Academic-style analysis.',
+};
+
 export default function UploadPanel({
   file, docStats, onFileSelect, onAnalyze, loading,
   qaAnswer, qaLoading, onAskQuestion, hasResults,
+  // New props
+  compareMode, setCompareMode, compareFile2, onCompareFileSelect,
+  onCompare, compareLoading, comparisonResult,
+  showAdvanced, setShowAdvanced,
+  searchQuery, setSearchQuery, onSearch, searchResults,
+  onPrintPreview,
+  analysisMode, setAnalysisMode,
 }) {
   const [question, setQuestion] = useState('');
+  const [selectedTemplate, setSelectedTemplate] = useState(null);
 
+  const getTemplateDescription = (template) => {
+    return TEMPLATE_DESCRIPTIONS[template] || 'General analysis with all available features.';
+  };
+
+  // Main document dropzone
   const onDrop = useCallback((accepted) => {
     if (accepted[0]) onFileSelect(accepted[0]);
   }, [onFileSelect]);
@@ -34,10 +56,27 @@ export default function UploadPanel({
     multiple: false,
   });
 
+  // Comparison document dropzone
+  const onCompareDrop = useCallback((accepted) => {
+    if (accepted[0]) onCompareFileSelect(accepted[0]);
+  }, [onCompareFileSelect]);
+
+  const { getRootProps: getCompareRootProps, getInputProps: getCompareInputProps, isDragActive: isCompareDragActive } = useDropzone({
+    onDrop: onCompareDrop,
+    accept: {
+      'application/pdf': ['.pdf'],
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx'],
+      'text/plain': ['.txt'],
+      'text/markdown': ['.md'],
+    },
+    multiple: false,
+  });
+
   const handleAsk = () => {
     if (question.trim()) {
       onAskQuestion(question.trim());
-      setQuestion('');
+      // Keep the question in the input field after asking
+      // setQuestion(''); // Commented out to keep question visible
     }
   };
 
@@ -129,6 +168,116 @@ export default function UploadPanel({
         )}
       </div>
 
+      {/* ── ANALYSIS MODE SELECTOR ── */}
+      {file && (
+        <div className="panel-section">
+          <div className="panel-title">⚡ Analysis Mode</div>
+          
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 12 }}>
+            {/* Lite Mode */}
+            <button
+              onClick={() => setAnalysisMode('lite')}
+              style={{
+                padding: '10px 12px',
+                background: analysisMode === 'lite' ? 'rgba(16,185,129,0.15)' : 'var(--surface2)',
+                border: `2px solid ${analysisMode === 'lite' ? '#10b981' : 'var(--border2)'}`,
+                borderRadius: 'var(--radius-sm)',
+                color: 'var(--text)',
+                fontSize: 12,
+                cursor: 'pointer',
+                fontFamily: 'var(--font-body)',
+                textAlign: 'left',
+                transition: 'all 0.15s',
+              }}
+              onMouseEnter={(e) => { if (analysisMode !== 'lite') { e.target.style.borderColor = '#10b981'; } }}
+              onMouseLeave={(e) => { if (analysisMode !== 'lite') { e.target.style.borderColor = 'var(--border2)'; } }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div>
+                  <div style={{ fontWeight: 600, marginBottom: 2 }}>🟢 Lite Mode</div>
+                  <div style={{ fontSize: 11, color: 'var(--muted)', fontWeight: 400 }}>
+                    Summary + Key Points + Risks + Actions + Sentiment
+                  </div>
+                </div>
+                {analysisMode === 'lite' && <span style={{ color: '#10b981', fontSize: 16 }}>✓</span>}
+              </div>
+            </button>
+
+            {/* Basic Mode */}
+            <button
+              onClick={() => setAnalysisMode('basic')}
+              style={{
+                padding: '10px 12px',
+                background: analysisMode === 'basic' ? 'rgba(59,130,246,0.15)' : 'var(--surface2)',
+                border: `2px solid ${analysisMode === 'basic' ? '#3b82f6' : 'var(--border2)'}`,
+                borderRadius: 'var(--radius-sm)',
+                color: 'var(--text)',
+                fontSize: 12,
+                cursor: 'pointer',
+                fontFamily: 'var(--font-body)',
+                textAlign: 'left',
+                transition: 'all 0.15s',
+              }}
+              onMouseEnter={(e) => { if (analysisMode !== 'basic') { e.target.style.borderColor = '#3b82f6'; } }}
+              onMouseLeave={(e) => { if (analysisMode !== 'basic') { e.target.style.borderColor = 'var(--border2)'; } }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div>
+                  <div style={{ fontWeight: 600, marginBottom: 2 }}>🔵 Basic Mode</div>
+                  <div style={{ fontSize: 11, color: 'var(--muted)', fontWeight: 400 }}>
+                    Lite + Keywords + Doc Type + Language
+                  </div>
+                </div>
+                {analysisMode === 'basic' && <span style={{ color: '#3b82f6', fontSize: 16 }}>✓</span>}
+              </div>
+            </button>
+
+            {/* Advanced Mode */}
+            <button
+              onClick={() => setAnalysisMode('advanced')}
+              style={{
+                padding: '10px 12px',
+                background: analysisMode === 'advanced' ? 'rgba(139,92,246,0.15)' : 'var(--surface2)',
+                border: `2px solid ${analysisMode === 'advanced' ? '#8b5cf6' : 'var(--border2)'}`,
+                borderRadius: 'var(--radius-sm)',
+                color: 'var(--text)',
+                fontSize: 12,
+                cursor: 'pointer',
+                fontFamily: 'var(--font-body)',
+                textAlign: 'left',
+                transition: 'all 0.15s',
+              }}
+              onMouseEnter={(e) => { if (analysisMode !== 'advanced') { e.target.style.borderColor = '#8b5cf6'; } }}
+              onMouseLeave={(e) => { if (analysisMode !== 'advanced') { e.target.style.borderColor = 'var(--border2)'; } }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div>
+                  <div style={{ fontWeight: 600, marginBottom: 2 }}>🟣 Advanced Mode</div>
+                  <div style={{ fontSize: 11, color: 'var(--muted)', fontWeight: 400 }}>
+                    All features including Highlights, Deadlines, Topics, Compliance
+                  </div>
+                </div>
+                {analysisMode === 'advanced' && <span style={{ color: '#8b5cf6', fontSize: 16 }}>✓</span>}
+              </div>
+            </button>
+          </div>
+
+          {/* Token usage indicator */}
+          <div style={{ 
+            padding: '8px', 
+            background: 'var(--surface2)', 
+            borderRadius: 'var(--radius-sm)', 
+            fontSize: '11px', 
+            color: 'var(--muted)',
+            textAlign: 'center',
+          }}>
+            {analysisMode === 'lite' && '⚡ ~15K tokens • Fastest • Best for quick overviews'}
+            {analysisMode === 'basic' && '📊 ~30K tokens • Balanced • Good for most documents'}
+            {analysisMode === 'advanced' && '🔬 ~65K tokens • Comprehensive • Full document intelligence'}
+          </div>
+        </div>
+      )}
+
       {/* ── ANALYZE ── */}
       {file && (
         <div className="panel-section">
@@ -145,6 +294,147 @@ export default function UploadPanel({
             <input {...getInputProps()} />
             <button className="reset-btn">↩ Change File</button>
           </div>
+        </div>
+      )}
+
+      {/* ── COMPARISON MODE ── */}
+      {file && hasResults && (
+        <div className="panel-section">
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <span style={{ fontSize: 13, color: 'var(--muted2)', fontWeight: 500 }}>⚖️ Compare Documents</span>
+            <button
+              onClick={() => setCompareMode(!compareMode)}
+              style={{
+                padding: '6px 14px',
+                background: compareMode ? 'var(--accent)' : 'var(--surface2)',
+                border: 'none',
+                borderRadius: '8px',
+                color: compareMode ? '#fff' : 'var(--muted2)',
+                fontSize: 12,
+                cursor: 'pointer',
+                fontFamily: 'var(--font-body)',
+                transition: 'all 0.15s',
+              }}
+            >
+              {compareMode ? '✓ Active' : 'Activate'}
+            </button>
+          </div>
+
+          {compareMode && (
+            <div style={{ marginTop: 12 }}>
+              {!compareFile2 ? (
+                <div {...getCompareRootProps({ className: 'dropzone-small' })}>
+                  <input {...getCompareInputProps()} />
+                  <div style={{ fontSize: 11, color: 'var(--muted)', textAlign: 'center' }}>
+                    Drop 2nd document to compare
+                  </div>
+                </div>
+              ) : (
+                <div style={{ padding: 10, background: 'var(--surface2)', borderRadius: 'var(--radius-sm)', marginBottom: 8 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ fontSize: 12, color: 'var(--text)', flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                      {compareFile2.name}
+                    </span>
+                    <button
+                      onClick={() => onCompareFileSelect(null)}
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        color: '#ef4444',
+                        cursor: 'pointer',
+                        fontSize: 16,
+                        padding: '0 4px',
+                      }}
+                    >
+                      ✕
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              <button
+                className="analyze-btn"
+                onClick={onCompare}
+                disabled={compareLoading || !compareFile2 || !hasKey}
+                style={{ width: '100%', marginTop: 8 }}
+              >
+                {compareLoading ? '⏳ Comparing…' : '⚖️ Compare Documents'}
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* ── SEARCH ── */}
+      {hasResults && (
+        <div className="panel-section">
+          <div className="panel-title">🔎 Search in Document</div>
+          <div className="qa-input-row">
+            <input
+              className="qa-input"
+              placeholder="Search for keywords..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && onSearch()}
+            />
+            <button
+              className="qa-btn"
+              onClick={onSearch}
+              disabled={!searchQuery.trim()}
+            >
+              🔍
+            </button>
+          </div>
+
+          {searchResults.length > 0 && (
+            <div style={{ marginTop: 10, maxHeight: 200, overflowY: 'auto' }}>
+              {searchResults.map((result, i) => (
+                <div
+                  key={i}
+                  style={{
+                    padding: 8,
+                    background: 'var(--surface2)',
+                    borderRadius: 'var(--radius-sm)',
+                    marginBottom: 6,
+                    fontSize: 11,
+                    color: 'var(--muted)',
+                    lineHeight: 1.5,
+                  }}
+                >
+                  <span style={{ color: 'var(--accent)', fontWeight: 500 }}>Match #{i + 1}:</span> {result.context}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* ── PRINT ── */}
+      {hasResults && (
+        <div className="panel-section">
+          <button
+            onClick={onPrintPreview}
+            style={{
+              width: '100%',
+              padding: '10px',
+              background: 'var(--surface2)',
+              border: '1px solid var(--border)',
+              borderRadius: 'var(--radius-sm)',
+              color: 'var(--muted2)',
+              fontSize: 13,
+              cursor: 'pointer',
+              fontFamily: 'var(--font-body)',
+              transition: 'all 0.15s',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 8,
+            }}
+            onMouseEnter={(e) => { e.target.style.borderColor = 'var(--accent)'; e.target.style.color = 'var(--accent)'; }}
+            onMouseLeave={(e) => { e.target.style.borderColor = 'var(--border)'; e.target.style.color = 'var(--muted2)'; }}
+          >
+            🖨️ Print Report
+          </button>
         </div>
       )}
 

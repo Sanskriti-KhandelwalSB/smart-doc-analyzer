@@ -1,6 +1,13 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\src",
+    "\\src\\components",
+    "\\src\\styles",
+    "\\src\\utils",
+    "\\{src",
+    "\\{src\\{components,utils,styles},public}"
   ],
+  "SelectedNode": "\\src\\utils\\groqService.js",
   "PreviewInSolutionExplorer": false
 }
