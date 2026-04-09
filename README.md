@@ -42,6 +42,7 @@
 | ⚡ **Fast Analysis** | Parallel AI processing for speed |
 | 📄 **Multi-Format Support** | PDF, DOCX, TXT, MD files |
 
+
 ---
 
 ## 🚀 Quick Setup (5 minutes)
